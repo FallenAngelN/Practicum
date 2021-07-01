@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+    
+</head>
+<body>
+    
+    <label><input type="text" id="Strings" value="6" style="font-family: Verdana; font-size: 12px; margin-left: 15px; width: 50px;">  Strings</label>
+    <label><input type="text" id="Columns" value="6" style="font-family: Verdana; font-size: 12px; margin-left: 15px; width: 50px;">  Columns</label>
+
+    <label><input type="text" id="Width" value="500px" style="font-family: Verdana; font-size: 12px; margin-left: 15px; width: 50px;">  Width</label>
+    <label><input type="text" id="Height" value="500px" style="font-family: Verdana; font-size: 12px; margin-left: 15px; width: 50px;">  Height</label>
+
+    <p><label><input type="checkbox" id="checkbox" value="Рамка" style="margin-left: 15px">  Frame</label></p>
+
+    <button id="create" onclick="CreateTable();" style="background-color: lime; margin: 5px 15px">  Create table</button>
+    <button id="create" onclick="DestroyTable();" style="background-color: red; margin: 5px 15px">  Destroy table</button>
+
+    <script>
+        //Описание функции создания
+        function CreateTable()
+        {
+            var body = document.querySelector("body"),
+                tableWidth = document.getElementById("Width"),
+                tableHeight = document.getElementById("Height"),
+                width = tableWidth.value,
+                height = tableHeight.value,
+                numStrings = document.getElementById("Strings"),
+                numColumns = document.getElementById("Columns"),
+                strings = numStrings.value,
+                columns = numColumns.value,
+                tr = "",
+                td = "",
+                firstTable = document.querySelector("table");
+
+            //Рамка
+            table = document.createElement("table"),
+                checkbox = document.getElementById("checkbox");
+            if (checkbox.checked == true)
+            {
+                table.setAttribute("border", "5px");
+            }
+            else
+            {
+                table.setAttribute("border", "0");
+            }
+
+            table.setAttribute("width", width);
+            table.setAttribute("height", height);
+            for (var i = 0; i < strings; i++)
+            {
+                tr = document.createElement("tr");
+                for (var j = 0; j < columns; j++)
+                {
+                    td = document.createElement("td");
+                    text = document.createTextNode((i + 1) + "." + (j + 1));
+                    td.appendChild(text);
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+
+            if (firstTable == null)
+            {
+                return body.appendChild(table);
+            }
+            else
+            {
+                var newTable = body.appendChild(table);
+                return document.body.replaceChild(newTable, firstTable);
+            }
+        }
+
+        function DestroyTable()
+        {
+            var body = document.querySelector("body"),
+                table = document.querySelector("table"),
+                checkbox = document.getElementById("checkbox")
+                tableWidth = document.getElementById("Width"),
+                tableHeight = document.getElementById("Height"),
+                numStrings = document.getElementById("strings"),
+                numColumns = document.getElementById("columns");
+            if (document.querySelector("table") != null)
+            {
+                document.body.removeChild(table);
+                checkbox.checked = 0;
+                tableWidth.value = "";
+                tableHeight.value = "";
+                numStrings.value = "";
+                numColumns.value = "";
+            }
+        }
+
+    </script>
+</body>
+</html>
